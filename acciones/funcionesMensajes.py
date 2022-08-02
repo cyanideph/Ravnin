@@ -26,60 +26,60 @@ SOFTWARE.
 import re
 import random
 
-# Funcion que muestra el mensaje de ayuda requerido - Fin
+# Function that displays the required help message - End
 
 
 def icon_bot(media, args):
     try:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Icon cambiado con éxito! uwu")
+                                    "Icon changed successfully!  uwu")
         args.subclient.edit_profile(icon=media)
 
     except Exception as Error:
         print(Error)
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡You put the wrong command! -w-")
 
 
 def fondo_perfil(media, args):
     try:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Fondo de perfil cambiado con éxito! uwu")
+                                    "¡Profile background changed successfullyo! uwu")
         args.subclient.edit_profile(backgroundImage=str(media))
 
     except Exception:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡Incorrect command/a! -w-")
 
 
 def portada(media, args):
     try:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Portada del chat cambiada con éxito! uwu")
+                                    "¡Chat cover changed successfullyo! uwu")
         args.subclient.edit_chat(chatId=args.chatId, icon=str(media))
 
     except Exception:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡You put the wrong command! -w-")
 
 
 def fondo(media, args):
     try:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Fondo del chat cambiado con éxito! uwu")
+                                    "¡Chat background changed successfullyo! uwu")
         args.subclient.edit_chat(chatId=args.chatId,
                                  backgroundImage=str(media))
 
     except Exception:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡You put the wrong command! -w-")
 
 
 def acepto(media, args):
@@ -93,7 +93,7 @@ def acepto(media, args):
     except Exception:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡You put the wrong command! -w-")
 
 
 def delete(args, replyToMessage, admins):
@@ -103,12 +103,12 @@ def delete(args, replyToMessage, admins):
             args.chatId, replyToMessage, False, "Prueba")
 
         args.subclient.send_message(
-            args.chatId, "Mensaje borrado con éxito! >:3")
+            args.chatId, "Message deleted successfully! >:3")
 
     except Exception:
 
         args.subclient.send_message(args.chatId,
-                                    "¡Pusiste el comando mal tontito/a! -w-")
+                                    "¡You put the wrong command! -w-")
 
 
 def trivia(args, replyMessage, idioma, mensaje):
@@ -149,21 +149,21 @@ def trivia(args, replyMessage, idioma, mensaje):
         if params2 == mensaje:
             args.subclient.send_message(
                 args.chatId,
-                f"[C]✧ ¿Eres súper dotado?\n\n[C]¡Respondiste correctamente la pregunta; {pregunta}! \n\n[C]R. {mensaje}"
+                f"[C]✧ ¿you are super gifted?\n\n[C]¡You answered the question correctly; {pregunta}! \n\n[C]✓. {mensaje}"
             )
         else:
             args.subclient.send_message(
                 args.chatId,
-                f"[C]✧ ¿Eres tontito?\n\n[C]¡Respondiste incorrectamente la pregunta; {pregunta}! \n\n[C]Respuesta != {mensaje}")
+                f"[C]✧ ¿you are silly?\n\n[C]¡You answered the question incorrectly; {pregunta}! \n\n[C]Answer != {mensaje}")
 
 
 responder_acciones = {
-    '.fondo': fondo,
-    '.portada': portada,
+    '.bg': fondo,
+    '.cover': portada,
     "-icon": icon_bot,
-    "-fondo": fondo_perfil,
+    "-bg_profile": fondo_perfil,
     "-delete": delete
 }
 
-casarse = ["Y los declaro marido y mujer.", "VIVAN LOS NOVIOOOOOOS!!!!",
-           "QUE VIVAN LOS DESGRACIAAAADOS!!!", "QUE VIVA EL AMARRE.. VIVAAAAA"]
+casarse = [" And I declare you husband and wife.", "LONG LIVE THE PARO PARO G!!!!",
+            "LONG SLEEVE PARO PARO - G!!!", "FLY HIGH BUTTERFLY... LONG LIVE"]

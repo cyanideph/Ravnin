@@ -17,17 +17,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
+import aminofix
 import ujson as json
 import unicodedata
 import re
 import requests
 import random
+from random import choice
 import urllib.request
 import urllib.parse
+import tr
 from tr.translate_rav import tr_rav
 from gtts import gTTS
-from urllib.parse import quote
 from fix.google_trans_new import google_translator
 # Archivos
 from acciones.funcionesUniversales import admins, clienteAmino, pwd, upload
@@ -57,27 +58,27 @@ def idiomaTrivia(lenguaje):
 
 def trivia(args, lenguaje):
     # Definir categoria para el JSON
-    if unicodedata.normalize('NFKD', "Música").encode(
+    if unicodedata.normalize('NFKD', "Music").encode(
             'ASCII', 'ignore').strip().lower() == unicodedata.normalize(
                 'NFKD', args.params).encode('ASCII', 'ignore').strip().lower():
-        result = "Música"
-    elif unicodedata.normalize('NFKD', "Geografía").encode(
+        result = "Music"
+    elif unicodedata.normalize('NFKD', "Geography").encode(
             'ASCII', 'ignore').strip().lower() == unicodedata.normalize(
                 'NFKD', args.params).encode('ASCII', 'ignore').strip().lower():
-        result = "Geografía"
-    elif args.params.lower() == "Arte".lower():
-        result = "Arte"
+        result = "Geography"
+    elif args.params.lower() == "Art".lower():
+        result = "Art"
     elif args.params.lower() == "General".lower():
         result = "General"
-    elif args.params.lower() == "Ciencia".lower():
-        result = "Ciencia"
+    elif args.params.lower() == "Science".lower():
+        result = "Science"
 
     idioma = idiomaTrivia(lenguaje)
     question = []
     answer = []
     for i in idioma[f"{result}"]:
-        select_preguntas = i["pregunta"]
-        select_respuestas = i["respuestas"]
+        select_preguntas = i["question"]
+        select_respuestas = i["answer"]
         question.append(select_preguntas)
         answer.append(select_respuestas)
     max = random.randint(0, len(question) - 1)
@@ -86,7 +87,7 @@ def trivia(args, lenguaje):
         'chatId':
         args.chatId,
         'message':
-        "[CB]—可 Quizz {params}❜\n\n\n[C]你好 —  ❥{question}\n\n1 ⇢ {uno} \n2 ⇢ {dos} \n3 ⇢ {tres} \n4 ⇢ {cuatro}\n\n[CB]⸙͎۪۫ Usar -lista"
+        "[CB]—可 Quizz {params}❜\n\n\n[C]你好 —  ❥{question}\n\n1 ⇢ {uno} \n2 ⇢ {dos} \n3 ⇢ {tres} \n4 ⇢ {cuatro}\n\n[CB]⸙͎۪۫  -lista"
         .format(params=result,
                 question=question[max],
                 uno=answer[max][uno],
@@ -149,7 +150,7 @@ def destacar(args, lenguaje):
         if args.profileId in admins:
             message_ide = {
                 'chatId': args.chatId,
-                'message': tr_rav(lenguaje=lenguaje, dato="destacar", Titulo=titulo)
+                'message': tr_rav(lenguaje=lenguaje, dato="highlight", Titulo=titulo)
             }
             args.subclient.send_message(**message_ide)
             args.subclient.feature(time=3, blogId=ide)
@@ -158,7 +159,7 @@ def destacar(args, lenguaje):
                 'chatId':
                 args.chatId,
                 'message':
-                f"¿Qué haces usando comando para dueños, {args.name}? ¿Eres tontito/a? -.-'"
+                f"using command for owners?, {args.name}? ¿you are silly/a? -.-'"
             }
             args.subclient.send_message(**message_ide)
 
@@ -209,7 +210,7 @@ def confession(args, lenguaje):
             else:
                 message = {
                     'message':
-                    "¡Intentaron mandarte un mensaje anonimo, cuidado, Staff! >.<",
+                    "Someone tried to send you an anonymous message, be careful, >.<",
                     'userId': user
                 }
         else:
@@ -219,14 +220,14 @@ def confession(args, lenguaje):
             }
     else:
         message = {
-            'message': "¿Qué haces usando mal este comando, tonto/a? -,-",
+            'message': "¿What are you doing using this command wrong, fool/a? -,-",
             'userId': args.profileId
         }
     message_carga = {
         'chatId':
         args.chatId,
         'message':
-        "[C]Confesión enviada. (っ•̀ω•̀)╮ =͟͟͞͞ 💗\n\n\n[C]Gracias por usar el\n[C]servicio de mensaje\n[C]Ravnin. (ง •᷄ω•)ว"
+        "[C]confession sent. (っ•̀ω•̀)╮ =͟͟͞͞ 💗\n\n\n[C]thanks for usingr el\n[C]message service\n[C]DRONEX. (ง •᷄ω•)ว"
     }
 
     args.subclient.send_message(**message_carga)
@@ -247,7 +248,7 @@ def join(args, lenguaje):
 
 
 def love(args, lenguaje):
-    num = random.randiny(0, 100)
+    num = random.randint(0, 100)
     if num >= 50 and num < 80:
         message = {
             'chatId':
@@ -337,7 +338,7 @@ def anfi(args, lenguaje):
         args.subclient.accept_host(args.chatId)
         message = {
             'chatId': args.chatId,
-            'message': "<$¡Gracias por hacerme anfi! >w<$>"
+            'message': "<$Thank you for making me host! >w<$>"
         }
         args.subclient.send_message(**message)
     except Exception as error:
@@ -389,7 +390,7 @@ def purge(args, lenguaje):
             'chatId': args.chatId,
             'message': tr_rav(lenguaje=lenguaje, dato="owner_off")
         }
-        args.subclient.send_messag(**message)
+        args.subclient.send_message(**message)
 
 
 def kick(args, lenguaje):
@@ -420,12 +421,11 @@ def info(args, lenguaje):
     if user_info:
         params = args.params.replace("@", "")
         usuario_arrobado = args.search_users(params)
-        global_user = clienteAmino.get_user_info(
-            f"{usuario_arrobado.userId[0]}").aminoId
+        global_user = clienteAmino.get_user_info(f"{usuario_arrobado.userId[0]}").aminoId
         message = {
             'chatId': args.chatId,
             'message':
-            f"""[IC]‎˖ ࣪‏@stalkeando a esta t̆̈ernurita‬‭ {usuario_arrobado.nickname[0]}˓ ！˖ ࣪
+            f"""[IC]‎˖ ࣪‏@{usuario_arrobado.nickname[0]}˓ ！˖ ࣪
 
 ♡̷̷ : : id = {usuario_arrobado.userId[0]}
 
@@ -433,13 +433,13 @@ def info(args, lenguaje):
 
 ♡̷̷ : : online = {bool(int(usuario_arrobado.json[0]["onlineStatus"])%2)}
 
-♡̷̷ : : nivel = {usuario_arrobado.level[0]}
+♡̷̷ : : level = {usuario_arrobado.level[0]}
 
-♡̷̷ : : Reputación = {usuario_arrobado.reputation[0]}
+♡̷̷ : : Reputation = {usuario_arrobado.reputation[0]}
 
-♡̷̷ : : Perfil Global = https://aminoapps.com/u/{global_user}
+♡̷̷ : : Global Profile = https://aminoapps.com/u/{global_user}
 	
-[BC]𝙗𝙞𝙤𝘨𝘳𝘢𝘧𝘪𝘢 ( ꈍᴗꈍ)
+Bio ( ꈍᴗꈍ))
 
 ♡̷̷ : : bio = {usuario_arrobado.json[0]["content"]}""",
             'embedTitle': f"{usuario_arrobado.nickname[0]}",
@@ -453,15 +453,15 @@ def info(args, lenguaje):
         message = {
             'chatId': args.chatId,
             'message': f"""
-[IC]‎˖ ࣪‏@stalkeando a esta t̆̈ernurita‬‭ {args.name}˓ ！˖ ࣪
+[IC]‎˖ ࣪‏@ {args.name}˓ ！˖ ࣪
 ♡̷̷ : : id = {args.profileId}
 ♡̷̷ : : blogs = {user.json[0]["blogsCount"]}
 ♡̷̷ : : online = {bool(int(user.json[0]["onlineStatus"])%2)}
-♡̷̷ : : nivel = {args.author.level}
-♡̷̷ : : Reputación = {args.author.reputation}
-♡̷̷ : : Perfil Global = https://aminoapps.com/u/{globalId}
+♡̷̷ : : level = {args.author.level}
+♡̷̷ : : Reputation = {args.author.reputation}
+♡̷̷ : : Global Profile = https://aminoapps.com/u/{globalId}
 	
-[BC]𝙗𝙞𝙤𝘨𝘳𝘢𝘧𝘪𝘢 ( ꈍᴗꈍ)
+[BC]Bio ( ꈍᴗꈍ)
 
 ♡̷̷ : : bio = {user.json[0]["content"]}""",
             'embedTitle': f"{args.name}",
@@ -471,16 +471,15 @@ def info(args, lenguaje):
         args.subclient.send_message(**message)
 
 
+
 def creditos(args, lenguaje):
-    creditos = """[CB]𝓡𝓪𝓿𝓷𝓲𝓷
-[C]	
-[C]Present Day.. heh... Present Time! HAHAHAHA. BY Standby."""
+    creditos = """[CB]DRONEX  v3.0.2  by NFV | CY & RAVNIN """
     message = {
         'chatId': args.chatId,
         'message': f"{creditos}",
         'replyTo': args.messageId,
-        'embedImage': upload("https://i.pinimg.com/564x/3d/42/cb/3d42cbf8f4a312728b7a2f51127e86b7.jpg"),
-        'embedLink': "https://aminoapps.com/u/Standbyy"
+        'embedImage': upload("https://iili.io/V2lXEB.jpg"),
+        'embedLink': "http://aminoapps.com/p/m7j923v"
     }
     args.subclient.send_message(**message)
 
@@ -488,7 +487,7 @@ def creditos(args, lenguaje):
 def id(args, lenguaje):
     message = {
         'chatId': args.chatId,
-        'message': f"- comunidad = {args.comId} \n- chat = {args.chatId}"
+        'message': f"- community= {args.comId} \n- chatid = {args.chatId}"
     }
     args.subclient.send_message(**message)
 
@@ -499,7 +498,7 @@ def kill(args, lenguaje):
     if not user:
         return
 
-    url = f'https://some-random-api.ml/canvas/wasted/?avatar={user.icon[0]}?key=AxFY2cclzlYWbeOrZXnsHpraT'
+    url = f'https://some-random-api.ml/canvas/wasted/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
     file = upload(url)
     try:
 
@@ -520,20 +519,314 @@ def kill(args, lenguaje):
             message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
         mensajesBot.mensajeError(error)
 
+def jail(args, lenguaje):
+    #jail = tr_rav(lenguaje=lenguaje, dato="jail", params=args.params)
+    user = args.search_users(args.params)
+    test = user.icon[0]
+    if not user:
+        return
 
-def gay(args, lenguaje):
-    url = f'https://some-random-api.ml/canvas/gay/?avatar={args.author.icon}?key=AxFY2cclzlYWbeOrZXnsHpraT'
+    url = f'https://some-random-api.ml/canvas/jail/?avatar={(test)}&key=4u3JEUb8UJljYHYl3bcFsFBEU'
     file = upload(url)
-    gay = random.randrange(0, 200)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(jail),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+
+
+def welcome(args, lenguaje):
+    #wc = tr_rav(lenguaje=lenguaje, dato="wc", params=args.params)
+    user = args.search_users(args.params)
+    u = user.nickname[0]
+    i = user.icon[0]
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/welcome/img/6/gaming1?key=4u3JEUb8UJljYHYl3bcFsFBEU&username={(u)}%20&discriminator=2022&avatar={(i)}%3Fsize=512&type=join&guildName=UZZAP&textcolor=white&memberCount=000'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(wc),
+            'embedTitle': f"𝗗𝗥𝗢𝗡𝗘𝗫 𝘃𝟰.𝟬𝟬𝟯",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+        
+def bye(args, lenguaje):
+    #wc = tr_rav(lenguaje=lenguaje, dato="wc", params=args.params)
+    #user = args.search_users(args.params)
+    #if not user:
+        #return
+
+    url = f'https://some-random-api.ml/welcome/img/6/gaming2?key=4u3JEUb8UJljYHYl3bcFsFBEU&username=RIP&discriminator=2022&avatar=https://cdn.discordapp.com/avatars/440681036758777857/13b0ea3b0846595de83a5d45d22574b8.png%3Fsize=512&type=leave&guildName=UZZAP&textcolor=green&memberCount=000'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(wc),
+            'embedTitle': f"𝗗𝗥𝗢𝗡𝗘𝗫 𝘃𝟰.𝟬𝟬𝟯",
+            #'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+             
+def passed(args, lenguaje):
+    #passed = tr_rav(lenguaje=lenguaje, dato="passed", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/passed/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(passed),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+        
+
+
+def glass(args, lenguaje):
+    #glass = tr_rav(lenguaje=lenguaje, dato="glass", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/glass/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(glass),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+
+def comrade(args, lenguaje):
+    #comrade = tr_rav(lenguaje=lenguaje, dato="comrade", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/comrade/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(comrade),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+    
+def triggered(args, lenguaje):
+    #triggered = tr_rav(lenguaje=lenguaje, dato="triggered", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/triggered/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(triggered),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "gif"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)    
+
+def lgbt(args, lenguaje):
+    #lgbt = tr_rav(lenguaje=lenguaje, dato="lgbt", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/lgbt/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            #'embedContent': random.choice(lgbt),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error)
+
+def tweet(args, lenguaje):
+    url = f"https://some-random-api.ml/canvas/tweet?username=DRONEX&comment={args.params}&displayname={args.name}&avatar={args.author.icon}&key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
     message = {
         'chatId': args.chatId,
-        'embedContent': tr_rav(lenguaje=lenguaje, dato="gay", rgay=gay),
-        'embedTitle': f"{args.name}",
+        'message': ...,
         'file': file,
-        'fileType': "image"
+        'fileType': "gif"
+    }
+    args.subclient.send_message(**message)
+ 
+
+   
+def pet(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+        
+    url = f"https://some-random-api.ml/premium/petpet?avatar={args.author.icon}&key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "gif"
+    }
+    args.subclient.send_message(**message)
+    
+def amongus(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+        
+    url = f"https://some-random-api.ml/premium/amongus?avatar={user.icon[0]}?&username={user.nickname[0]}&imposter={args.name}?&key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "gif"
     }
     args.subclient.send_message(**message)
 
+def rank(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+    url = f"https://some-random-api.ml/premium/rankcard/4?key=4u3JEUb8UJljYHYl3bcFsFBEU&username={user.nickname[0]}&discriminator=2022&avatar={user.icon[0]}%3Fsize=512&cxp=800&nxp=1000&rank={user.reputation[0]}&level={user.level[0]}&cbg=66568D&ctext=50F582&ccxp=50F582&cbar=ffffff"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'mentionUserIds': [args.profileId, user.userId[0]],
+        'file': file,
+        'fileType': "gif"
+    }
+    args.subclient.send_message(**message)
+    
+
+
+def lesbian(args, lenguaje):
+    lesbian = tr_rav(lenguaje=lenguaje, dato="lesbian", params=args.params)
+    user = args.search_users(args.params)
+    if not user:
+        return
+
+    url = f'https://some-random-api.ml/canvas/lesbian/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU'
+    file = upload(url)
+    try:
+
+        message = {
+            'chatId': args.chatId,
+            'embedContent': random.choice(lesbian),
+            'embedTitle': f"{args.name}",
+            'mentionUserIds': [args.profileId, user.userId[0]],
+            'file': file,
+            'fileType': "image"
+        }
+        args.subclient.send_message(**message)
+
+    except Exception as error:
+
+        args.subclient.send_message(
+            chatId=args.chatId,
+            message=tr_rav(lenguaje=lenguaje, dato="owner_error"))
+        mensajesBot.mensajeError(error) 
 
 def coin(args, lenguaje):
     coin = pwd("media/img/monedas")
@@ -569,7 +862,66 @@ def dance(args, lenguaje):
     }
     args.subclient.send_message(**message)
 
+def bbm(args, lenguaje):
+    ruta = pwd("media/img/bbm")
+    file = str(random.choice(ruta))
 
+    with open((file), "rb") as file:
+        message_imagen = {
+            'chatId': args.chatId,
+            'message': ...,
+            'file': file,
+            'fileType': "gif"
+        }
+        args.subclient.send_message(**message_imagen)
+    bbm = ["Sama-sama tayong babangon muli", "Always forgive your enemies,nothing annoys them so much", "Mahalin natin ang Pilipinas"]
+    message = {
+        'chatId': args.chatId,
+        'message': random.choice(bbm),
+        'messageType': 109
+    }
+    args.subclient.send_message(**message)
+    
+def isko(args, lenguaje):
+    ruta = pwd("media/img/isko")
+    file = str(random.choice(ruta))
+
+    with open((file), "rb") as file:
+        message_imagen = {
+            'chatId': args.chatId,
+            'message': ...,
+            'file': file,
+            'fileType': "gif"
+        }
+        args.subclient.send_message(**message_imagen)
+    isko = ["Tayo si Isko!", "Pilipinas, Bilis Kilos", "Tunay Na Solusyon, Mabilis Umaksyon!"]
+    message = {
+        'chatId': args.chatId,
+        'message': random.choice(isko),
+        'messageType': 109
+    }
+    args.subclient.send_message(**message)
+
+def leni(args, lenguaje):
+    ruta = pwd("media/img/leni")
+    file = str(random.choice(ruta))
+
+    with open((file), "rb") as file:
+        message_imagen = {
+            'chatId': args.chatId,
+            'message': ...,
+            'file': file,
+            'fileType': "gif"
+        }
+        args.subclient.send_message(**message_imagen)
+    leni = ["Husay at Tibay, Dapat si Leni!", "Gobyernong Tapat, Angat Buhay Lahat", "Kulay Rosas ang Bukas"]
+    message = {
+        'chatId': args.chatId,
+        'message': random.choice(leni),
+        'messageType': 109
+    }
+    args.subclient.send_message(**message)
+        
 def nalgada(args, lenguaje):
     ruta = pwd("media/img/nalgada")
     file = str(random.choice(ruta))
@@ -644,7 +996,32 @@ def audio(args, lenguaje):
         }
         args.subclient.send_message(**message)
 
+def ml(args, lenguaje):
 
+    audio = pwd("media/ML")
+
+    with open(str(random.choice(audio)), "rb") as file:
+        message = {
+            'chatId': args.chatId,
+            'message': 'I am alive.',
+            'file': file,
+            'fileType': "audio"
+        }
+        args.subclient.send_message(**message)
+        
+def test(args, lenguaje):
+
+    audio = pwd("media/test")
+
+    with open(str(random.choice(audio)), "rb") as file:
+        message = {
+            'chatId': args.chatId,
+            'message': 'I am alive.',
+            'file': file,
+            'fileType': "audio"
+        }
+        args.subclient.send_message(**message)
+ 
 def img(args, lenguaje):
     img = pwd("media/img/otros")
 
@@ -752,7 +1129,7 @@ def patada(args, lenguaje):
     args.subclient.send_message(**message)
 
 
-def desaparece(args, lenguaje):
+def desaparecer(args, lenguaje):
     ruta = pwd("media/img/desaparecer")
     file = str(random.choice(ruta))
 
@@ -764,10 +1141,10 @@ def desaparece(args, lenguaje):
             'fileType': "gif"
         }
         args.subclient.send_message(**message_imagen)
-    desaparece = tr_rav(lenguaje=lenguaje, dato="desaparecer", name=args.name)
+    desaparecer = tr_rav(lenguaje=lenguaje, dato="desaparecer", name=args.name)
     message = {
         'chatId': args.chatId,
-        'message': random.choice(desaparece),
+        'message': random.choice(desaparecer),
         'messageType': 109
     }
     args.subclient.send_message(**message)
@@ -814,7 +1191,7 @@ def mishi(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -829,7 +1206,7 @@ def snake(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -844,7 +1221,7 @@ def pandaBaby(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -859,7 +1236,7 @@ def ratas(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -874,7 +1251,7 @@ def randoms(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -889,7 +1266,7 @@ def anime(args, lenguaje):
     except Exception:
         message = {
             'chatId': args.chatId,
-            'message': "No tengo Amino+ tontito/a uwu"
+            'message': "I don't have Amino+😓"
         }
         args.subclient.send_message(**message)
 
@@ -1005,17 +1382,16 @@ def hack(args, lenguaje):
 
 
 def youtube(args, lenguaje):
-    def mecanismoPrincipal(msg):
-        msg = msg['message']
+    def mecanismoPrincipal(yt):
+        msg = {'message': args.params}
         query_string = urllib.parse.urlencode({"search_query": str(msg)})
-        html_content = urllib.request.urlopen(
-            "http://www.youtube.com/results?" + query_string)
-        search_results = re.findall(r'watch\?v=(\S{11}',
-                                    html_content.read().decode())
-        result = 'https://youtu.be/' + search_results[0]
+        html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
+        search_results = re.findall(r'href=\"\/watch\?v=(.{11})',
+        html_content.read().decode())
+        result = "http://www.youtube.com/watch?v=" + search_results[0]
         message = {
             'message':
-            "[CB][Video]: " + result + "\n\n\n[C]Aqui ta tu video >w<",
+            "[CB][Video]: " + result + "\n\n\n[C]here is your video >w<",
             'chatId':
             args.chatId,
             'embedLink':
@@ -1023,7 +1399,7 @@ def youtube(args, lenguaje):
             'embedContent':
             'Ravnin Contenido',
             'embedTitle':
-            'Luego saco el titulo',
+            'Then I get the title',
             'embedImage':
             upload(f'https://img.youtube.com/vi/{search_results[0]}/1.jpg')
         }
@@ -1104,7 +1480,7 @@ def pokedex(args, lenguaje):
 
 
 def youtubeComment(args, lenguaje):
-    url = f"https://some-random-api.ml/canvas/youtube-comment?avatar={args.author.icon}&comment={args.params}&username={args.name}?key=AxFY2cclzlYWbeOrZXnsHpraT"
+    url = f"https://some-random-api.ml/canvas/youtube-comment?username={args.name}?&comment={args.params}&avatar={args.author.icon}?&dark=true%E2%80%8B&key=4u3JEUb8UJljYHYl3bcFsFBEU"
     file = upload(url)
     message = {
         'chatId': args.chatId,
@@ -1114,9 +1490,19 @@ def youtubeComment(args, lenguaje):
     }
     args.subclient.send_message(**message)
 
+def mc(args, lenguaje):
+    url = f"https://some-random-api.ml/mc?username=test&&avatar={args.author.icon}&key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "gif"
+    }
+    args.subclient.send_message(**message)
 
 def loli(args, lenguaje):
-    url = f"https://some-random-api.ml/canvas/lolice/?avatar={args.author.icon}?key=AxFY2cclzlYWbeOrZXnsHpraT"
+    url = f"https://some-random-api.ml/canvas/lolice/?avatar={args.author.icon}?key=4u3JEUb8UJljYHYl3bcFsFBEU"
     file = upload(url)
     message = {
         'chatId': args.chatId,
@@ -1126,6 +1512,61 @@ def loli(args, lenguaje):
     }
     args.subclient.send_message(**message)
 
+def horny(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+    url = f"https://some-random-api.ml/canvas/horny/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "image"
+    }
+    args.subclient.send_message(**message)
+    
+def wanted(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+    test = f"https://api.xzusfin.repl.co/WANTED?image={user.icon[0]}?&style=1"
+    file = upload(test)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "image"
+    }
+    args.subclient.send_message(**message)
+    
+def card(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+    test = f"card?avatar={user.icon[0]}&middle=text&name=text&bottom=text[&text=hex|rgba&avatarborder=hex|rgba&avatarbg=hex|rgba&background=url|hex|rgba]"
+    file = upload(test)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "image"
+    }
+    args.subclient.send_message(**message)
+    
+def simpcard(args, lenguaje):
+    user = args.search_users(args.params)
+    if not user:
+        return
+    url = f"https://some-random-api.ml/canvas/simpcard/?avatar={user.icon[0]}?key=4u3JEUb8UJljYHYl3bcFsFBEU"
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "image"
+    }
+    args.subclient.send_message(**message)
 
 def wink(args, lenguaje):
     response = requests.get('https://some-random-api.ml/animu/wink')
@@ -1137,6 +1578,19 @@ def wink(args, lenguaje):
         'message': ...,
         'file': file,
         'fileType': "gif"
+    }
+    args.subclient.send_message(**message)
+   
+def meme(args, lenguaje):
+    response = requests.get('https://some-random-api.ml/meme')
+    json_data = json.loads(response.text)
+    url = json_data['image']
+    file = upload(url)
+    message = {
+        'chatId': args.chatId,
+        'message': ...,
+        'file': file,
+        'fileType': "image"
     }
     args.subclient.send_message(**message)
 
@@ -1328,7 +1782,7 @@ def chat(args, lenguaje):
     translate_en = translator.translate(args.params, lang_tgt='en')
     args.params = ''.join(map(str, translate_en))
     args.params = args.params.strip("'")
-    link = f"https://api.deltaa.me/chatbot?message={quote(args.params)}&gender=Female"
+    link = f"https://api.deltacoderr.repl.co/chatbot?message={(args.params)}&gender=Female"
     response = requests.get(link)
     json_data = json.loads(response.text)
     if lenguaje == "en":
@@ -1337,7 +1791,7 @@ def chat(args, lenguaje):
         chatbot = translator.translate(json_data["message"], lang_tgt=lenguaje)
     message = {
         'chatId': args.chatId,
-        'message': f"{chatbot}",
+        'message': f"{chatbot} {args.name}",
         'replyTo': args.messageId
     }
     args.subclient.send_message(**message)
@@ -1348,11 +1802,11 @@ def chatSiri(args, lenguaje):
     translate_en = translator.translate(args.params, lang_tgt='en')
     args.params = ''.join(map(str, translate_en))
     args.params = args.params.strip("'")
-    link = f"https://api.deltaa.me/chatbot?message={quote(args.params)}&gender=Female"
+    link = f"https://api.deltacoderr.repl.co/chatbot?message={(args.params)}&gender=Male"
     response = requests.get(link)
     json_data = json.loads(response.text)
-    chatbot = translator.translate(json_data["message"], lang_tgt='es')
-    tts = gTTS(f"{chatbot}", lang='es')
+    chatbot = translator.translate(json_data["message"], lang_tgt='en')
+    tts = gTTS(f"{chatbot}", lang='en')
     file = tts.save('audio.mp3')
     with open("audio.mp3", "rb") as file:
         message = {
@@ -1363,15 +1817,14 @@ def chatSiri(args, lenguaje):
         }
         args.subclient.send_message(**message)
 
-
 def chat_en(args, lenguaje):
-    link = f"https://api.deltaa.me/chatbot?message={quote(args.params)}&gender=Female"
+    link = f"https://some-random-api.ml/chatbot?message={(args.params)}&key=4u3JEUb8UJljYHYl3bcFsFBEU"
     response = requests.get(link)
     json_data = json.loads(response.text)
-    chatbot = json_data["message"]
+    chatbot = json_data["response"]
     message = {
         'chatId': args.chatId,
-        'message': f"{chatbot}",
+        'message': f"{chatbot} {args.name}",
         'replyTo': args.messageId
     }
     args.subclient.send_message(**message)
@@ -1512,7 +1965,7 @@ def ban(args, lenguaje):
             else:
                 message = {
                     'chatId': args.chatId,
-                    'message': "Esas usando el comando mal tontito/a -.-'"
+                    'message': "You are using the command wrong /a -.-'"
                 }
                 args.subclient.send_message(**message)
         else:
@@ -1528,7 +1981,7 @@ def ban(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<$[C]¡Error, put the command correctly silly/a! -w-\n\n[C]Remember to put -help -command to know how to use it uwu$>"
         }
         args.subclient.send_message(**message)
 
@@ -1563,7 +2016,7 @@ def warn(args, lenguaje):
             else:
                 message = {
                     'chatId': args.chatId,
-                    'message': "Esas usando el comando mal tontito/a -.-'"
+                    'message': "Are you using the command wrong/a -.-'"
                 }
                 args.subclient.send_messag(**message)
         else:
@@ -1579,7 +2032,7 @@ def warn(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<$[C]¡Error, put the command correctly silly/a! -w-\n\n[C]Remember to put -help -command to know how to use it uwu$>"
         }
         args.subclient.send_message(**message)
 
@@ -1633,7 +2086,7 @@ def strike_user(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1654,7 +2107,7 @@ def bloquear(args, lenguaje):
             else:
                 message = {
                     'chatId': args.chatId,
-                    'message': "<$¡Usaste el comando mal tontito! -w-$>"
+                    'message': "<$You used the wrong command silly!  -w-$>"
                 }
                 args.subclient.send_message(**message)
         else:
@@ -1670,7 +2123,7 @@ def bloquear(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
         print("error: ", error)
@@ -1692,7 +2145,7 @@ def desbloquear(args, lenguaje):
             else:
                 message = {
                     'chatId': args.chatId,
-                    'message': "<$¡Usaste el comando mal tontito! -w-$>"
+                    'message': "<$You used the wrong command silly!  -w-$>"
                 }
                 args.subclient.send_message(**message)
         else:
@@ -1708,7 +2161,7 @@ def desbloquear(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1726,7 +2179,7 @@ def edit_chat_view(args, lenguaje):
             if args.params is None:
                 message_falso = {
                     'chatId': args.chatId,
-                    'message': "<$¡Ahora cualquiera puede leer el chat! uwu$>"
+                    'message': "<$¡Now anyone can read the chat! uwu$>"
                 }
                 args.subclient.send_message(**message_falso)
 
@@ -1747,7 +2200,7 @@ def edit_chat_view(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1775,7 +2228,7 @@ def edit_chat_content(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1805,7 +2258,7 @@ def edit_chat_clave(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1837,7 +2290,7 @@ def edit_chat_anuncio(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1874,7 +2327,7 @@ def edit_chat_pinAnnouncement(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1912,7 +2365,7 @@ def edit_chat_canInvite(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1940,7 +2393,7 @@ def edit_chat_title(args, lenguaje):
             'chatId':
             args.chatId,
             'message':
-            "<$[C]¡Error, pon bien el comando tontito/a! -w-\n\n[C]Recuerda poner -help -comando para saber como usarlo uwu$>"
+            "<[C]Error, put the command correctly ,Remember to put -help -command "
         }
         args.subclient.send_message(**message)
 
@@ -1977,59 +2430,73 @@ def edit_bio(args, lenguaje):
 
 # Arrays
 categoriasComandos = [
-    "-animales", "-entretenimiento", "-guion", "-invisible", "-ravnin",
-    "-ayudante", "-acciones"
+    "-animals", "-entertainment", "-script", "-invisible", "-dronex",
+    "-helper", "-actions"
 ]
 
 acciones = {
     "-comment": comment_user,
     "-info": info,
-    "-burbuja": burbuja,
+    "-bubble": burbuja,
     "-join": join,
-    "-desaparece": desaparece,
+    "-disappear": desaparecer,
     "-link": id_link,
     "-loli": loli,
-    "-gay": gay,
     "-id": id,
-    "-biografia": edit_bio,
+    "-bio": edit_bio,
     "-name": edit_nick,
     "-confession": confession,
     "-kill": kill,
+    "-jail": jail,
+    "-glass": glass,
+    "-comrade": comrade,
+    "-trig": triggered,
+    "-lgbt": lgbt,
+    "-les": lesbian,
+    "-meme": meme,
+    "-h": horny,
+    "-sim": simpcard,
+    "-pass": passed,
+    "-tweet": tweet,
+    "-pet": pet,
+    "-amongus": amongus,
+    "-rank": rank,
     "-hug": hug,
-    "-saludo": saludo,
-    "-esquivar": esquivar,
+    "-salute": saludo,
+    "-dodge": esquivar,
     "-pokedex": pokedex,
     "-audio": audio,
-    "-like_comunidad": comunidadLike,
+    "-like_community": comunidadLike,
     "-img": img,
-    "-casarse": casarse,
+    "-marry": casarse,
     "-panda": panda,
     "-redPanda": redPanda,
     "-racoon": racoon,
     "-kangaroo": kangaroo,
     "-koala": koala,
     "-wink": wink,
-    "-nalgada": nalgada,
-    "-facePalm": facePalm,
+    "-spank": nalgada,
+    "-facepalm": facePalm,
     "-pat": pat,
-    "-patada": patada,
+    "-mc": mc,
+    "-kick": patada,
     "-ship": ship,
-    "-anfi": anfi,
-    "-sonrojar": sonrojar,
-    "-correr": correr,
+    "-host": anfi,
+    "-blush": sonrojar,
+    "-run": correr,
     "-love": love,
     "-kick": kick,
-    "-birb": birb,
+    "-bird": birb,
     "-cat": cat,
-    "-chat_siri": chatSiri,
+    "-drone": chatSiri,
     "-fox": fox,
     "-mishi": mishi,
     "-snake": snake,
     "-pandaBaby": pandaBaby,
     "-random": randoms,
     "-anime": anime,
-    "-rata": ratas,
-    "-dormir": dormir,
+    "-rat": ratas,
+    "-sleep": dormir,
     "-tr": traductor,
     "-chat": chat,
     "-siri": siri,
@@ -2038,45 +2505,53 @@ acciones = {
     "-cry": cry,
     "-dance": dance,
     "-coin": coin,
-    "-aparece": aparece,
+    "-appear": aparece,
     "-quizz": playGame,
     "-speak": speak,
     "-strike": strike,
     "-purge": purge,
-    "-lista": listaTrivia,
+    "-list": listaTrivia,
     "-hack": hack,
-    "-chat_en": chat_en,
-    "-background": background,
-    "-creditos": creditos,
+    "Drone": chat_en,
+    "drone": chat_en,
+    "-bg": background,
+    "-credits": creditos,
     "-youtubeComment": youtubeComment,
     "-everyone": everyone,
-    # "-youtube": youtube,
+    "-youtube": youtube,
     "-dog": dog,
     "~panda": panda,
     "~hug": hug_hug,
     "-clorox": clorox,
     "-trivia": trivia,
-    "-posar": posar,
+    "-pose": posar,
     "~speak": speak_invicible,
     "~kiss": virguilila_kiss,
     "~ban": virguilila_ban,
-    # "~meter": virguilila_meter,
+    "~meter": virguilila_meter,
     "~lick": virguilila_lick,
     "~hit": virguilila_hit,
     "~strike": virguilila_strike,
-    ".titulo": edit_chat_title,
-    ".contenido": edit_chat_content,
+    ".title": edit_chat_title,
+    ".content": edit_chat_content,
     ".view": edit_chat_view,
-    ".invitar": edit_chat_canInvite,
-    ".anuncio": edit_chat_anuncio,
-    ".fijar": edit_chat_pinAnnouncement,
-    ".clave": edit_chat_clave,
+    ".invite": edit_chat_canInvite,
+    ".announce": edit_chat_anuncio,
+    ".pin": edit_chat_pinAnnouncement,
+    ".key": edit_chat_clave,
     ".ban": ban,
     ".strike": strike_user,
-    ".bloquear": bloquear,
-    ".desbloquear": desbloquear,
+    ".block": bloquear,
+    ".unblock": desbloquear,
     ".warn": warn,
-    ".destacar": destacar,
+    "-ml": ml,
+    "-bbm": bbm,
+    "-isko": isko,
+    "-leni": leni,
+    "-wanted": wanted,
+    "-wc": welcome,
+    "-bye": bye,
+    ".highlight": destacar,
 }
 
 burbuja = {

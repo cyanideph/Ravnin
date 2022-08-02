@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-import amino
+import aminoCAT
 import requests
 import re
 from datos import credenciales
@@ -30,12 +30,13 @@ from os import scandir, getcwd
 from os.path import abspath
 from io import BytesIO
 
-clienteAmino = amino.Client()
+
+clienteAmino = aminoCAT.Client()
 correo = credenciales.Usuario.correo
 clave = credenciales.Usuario.clave
 
 admins = [
-    "c0884d27-5f07-4579-92bf-782563080c16"
+    "3cf3a765-0651-40b9-9b98-605138748d8b"
 ]
 
 wikis = {}
@@ -59,7 +60,6 @@ class ravnin:
         self.messageId = data.message.messageId
         self.params = params
         self.comId = data.comId
-
     def join_chats(self):
         if re.search("http://aminoapps.com/p/", str(self.params)):
             messageId = self.params.replace("http://aminoapps.com/p/", "")
@@ -111,7 +111,7 @@ class ravnin:
                 pass
         self.subclient.send_message(
             chatId=self.chatId,
-            message=f"[C]Mi Score de Quizz: <${self.subclient.get_quiz_rankings(quizId=quizzId).profile.highestScore}$> >:3"
+            message=f"[C]My score: <${self.subclient.get_quiz_rankings(quizId=quizzId).profile.highestScore}$> >:3"
         )
 
     def search_users(self, nombre=str):
@@ -156,7 +156,7 @@ class wiki():
             self.mensajeAyuda = self.mensajeAyuda_wiki
 
 def wiki_content(ide):
-    subclient = amino.SubClient(comId="8150137", profile=clienteAmino.profile)
+    subclient = aminoCAT.SubClient(comId="103000848", profile=clienteAmino.profile)
     wiki = subclient.get_wiki_info(wikiId=ide).json
     result = wiki["item"]["content"]
     wikis[ide] = result
