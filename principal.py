@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 import re
-import amino
+import aminoCAT
 import time
 from threading import Timer
 from threading import Thread
@@ -46,7 +46,7 @@ def parametros(l):
 @clienteAmino.event('on_chat_tip')
 def on_chat_tiip(data):
     try:
-        subClient = amino.SubClient(comId=data.comId,
+        subClient = aminoCAT.SubClient(comId=data.comId,
                                     profile=clienteAmino.profile)
     except Exception:
         return
@@ -54,35 +54,34 @@ def on_chat_tiip(data):
     raw_data = data.json
     coins = raw_data['chatMessage']['extensions']['tippingCoins']
     mensaje = {
-        'message': "[C]¡Muchas gracias! nwn",
+        'message': "[C]Thank you",
         'embedTitle': data.message.author.nickname,
         'chatId': data.message.chatId,
         'embedImage': upload(data.message.author.icon),
         'embedLink': "ndc://user-profile/data.message.author.userId",
-        'embedContent': f"Coins donadas: {coins} ♡"
+        'embedContent': f"Coins donated: {coins} ♡"
     }
     subClient.send_message(**mensaje)
 
 # Funcion de bienvenida a los usuarios
 @clienteAmino.event('on_group_member_join')
 def on_group_member_join(data):
-    sub = amino.SubClient(comId=data.comId, profile=clienteAmino.profile)
+    sub = aminoCAT.SubClient(comId=data.comId, profile=clienteAmino.profile)
     if data.message.author.userId not in content.lista_negra:
         mensaje = {
-            'message': f"{content.join}",
+            'message': f"-wc {data.message.author.nickname} {content.join} ",
             'embedTitle': data.message.author.nickname,
             'chatId': data.message.chatId,
             'embedImage': upload(data.message.author.icon)
         }
         sub.send_message(**mensaje)
 
-# Funcion de despedida a los usuarios
 @clienteAmino.event('on_group_member_leave')
 def on_group_member_leave(data):
-    sub = amino.SubClient(comId=data.comId, profile=clienteAmino.profile)
+    sub = aminoCAT.SubClient(comId=data.comId, profile=clienteAmino.profile)
     if data.message.author.userId not in content.lista_negra:
         mensaje = {
-            'message': f"{content.leave}",
+            'message': f"-bye",
             'chatId': data.message.chatId
         }
         sub.send_message(**mensaje)
@@ -91,7 +90,7 @@ def on_group_member_leave(data):
 @clienteAmino.event("on_text_message")
 def on_command_text(data):
     def commandos():
-        subclient = amino.SubClient(comId=data.comId,
+        subclient = aminoCAT.SubClient(comId=data.comId,
                                     profile=clienteAmino.profile)
         message = {'chatId': data.message.chatId}
         mensaje = data.message.content
@@ -115,7 +114,7 @@ def on_command_text(data):
                     else:
                         message.update({
                             'message':
-                            "¡Usaste mal mis comandos y tienes el descaro de volver a usarlos! -n-"
+                            "You misused my commands and you have the nerve to use them again!"
                         })
                         subclient.send_message(**message)
 
@@ -123,7 +122,7 @@ def on_command_text(data):
                     print(Error)
                     message.update({
                         'message':
-                        "¡Cargando comandos, funciones, listas y clases en Ravnin... ¡1s! ... Intenta ejecutar nuevamente este comando."
+                        "Loading commands, functions, lists and classes in Dronex... 1s!  ... Try running this command again."
                     })
                     subclient.send_message(**message)
 
@@ -143,7 +142,7 @@ def on_command_text(data):
                         subclient.send_message(**message)
                     except Exception:
                         message.update({
-                            'message': "¡Cargando comandos, funciones, listas y clases en Ravnin... ¡1s! ... Intenta ejecutar nuevamente este comando."})
+                            'message': "Loading commands, functions, lists and classes in Dronex... 1s!  ... Try running this command again."})
                         subclient.send_message(**message)
 
     comandos = Timer(0, commandos)
@@ -153,7 +152,7 @@ def on_command_text(data):
 def on_reply_message(data):
     def reply_message():
 
-        subclient = amino.SubClient(comId=data.comId,
+        subclient = aminoCAT.SubClient(comId=data.comId,
                                     profile=clienteAmino.profile)
         mensaje = data.message.content
         command = mensaje.split(' ')
@@ -206,7 +205,7 @@ def contenido(data):
 def on_admin_message(data):
     def admin_message():
         global activo
-        subclient = amino.SubClient(comId=data.comId,
+        subclient = aminoCAT.SubClient(comId=data.comId,
                                     profile=clienteAmino.profile)
         mensaje = data.message.content
         chatId = data.message.chatId
@@ -217,7 +216,7 @@ def on_admin_message(data):
             if command == "-off":
 
                 activo = False
-                message_on = {'chatId': chatId, 'message': "¡Bot apagado!"}
+                message_on = {'chatId': chatId, 'message': "Bot deactivated!"}
                 subclient.send_message(**message_on)
 
             elif activo is False:
@@ -225,7 +224,7 @@ def on_admin_message(data):
                 if command == "-on":
 
                     activo = True
-                    message_on = {'chatId': chatId, 'message': "Bot activado"}
+                    message_on = {'chatId': chatId, 'message': "Bot activated"}
                     subclient.send_message(**message_on)
 
                 if command in funcionesAcciones.acciones:
@@ -234,7 +233,7 @@ def on_admin_message(data):
                         'chatId':
                         chatId,
                         'message':
-                        "Bot en actualización, ¡Ningún comando funcionará!"
+                        "Bot updating, no command will work!!"
                     }
                     subclient.send_message(**message_none)
 
@@ -259,7 +258,7 @@ def join_community():
             """
             Id = clienteAmino.get_from_code(community_Link).path
             community_Id = Id[1:Id.index("/")]
-            clienteAmino.join_community(comId=community_Id)
+            clienteAmino.j#oin_community(comId=community_Id)
 
         except Exception:
 
