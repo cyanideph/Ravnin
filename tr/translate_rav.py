@@ -266,8 +266,8 @@ def tr_rav(lenguaje, dato, **kwarg):
         },
 
         'en': {
-            "comment": "[C]Comment sent. (っ-̀ω-̀)╮ =͟͟͞ 💗 \n\n\n[C]Thank you for using the \n[C]Ravnin message service. (ง -᷄ω-)ว",
-            "Id_Amino": f"The ide of this link is: {kwarg.get('ID')}",
+            "comment": "[C]Comment sent. (っ-̀ω-̀)╮ =͟͟͞ 💗 \n\n\n[C]Thank you for using the \n[C]Dronex message service. (ง -᷄ω-)ว",
+            "Id_Amino": f"The id of this link is: {kwarg.get('ID')}",
             "destacar": f"Post: {kwarg.get('Titulo')} successfully featured! >w<",
             "join": "I have already joinend the chat -w-",
             "one_love": f"hey have a {kwarg.get('num')}% {kwarg.get('name')} and {kwarg.get('params')} they seem to be good friends, maybe in the future they will be better friends. OwO",
@@ -275,7 +275,7 @@ def tr_rav(lenguaje, dato, **kwarg):
             "three_love": f"They have a {kwarg.get('num')}% {kwarg.get('name')} and {kwarg.get('params')}, probably acquaintances ... But the very certain thing is that they hate each other, believe me. >.<",
             "four_love": f"They have a {kwarg.get('num')}% {kwarg.get('name')} and {kwarg.get('params')} they are like poop and food, they don't go.. -n-",
             "purge": "<$Ño eres mi dueño, ¿Qué haces usando este comando? -.-$>",
-            "kick": "<$Rebel user kicked out of chat successfully!  Next time you come back I'll kick you more.. uwu$>",
+            "kick": "<$user kicked out of chat successfully!  Next time you come back I'll kick you more.. uwu$>",
             "comunindad_like": "<$¡I already put this community as one of my favorites in my global profile, muah! uwu$>",
             "kill": [
                 f"He grabs his head {kwarg.get('params')} and arms, put him in the pot",
@@ -285,8 +285,32 @@ def tr_rav(lenguaje, dato, **kwarg):
                 f"Reminds him of the ex and kills him with sadness {kwarg.get('params')} u.u",
                 f"to eat {kwarg.get('params')} little by little, but with kisses.. @-@",
             ],
+            "wc": [
+                f"Dont tell people your plans. Show them your results",
+                f"Try Again. Fail again. Fail better",
+                f"Impossible is for the unwilling",
+                f"Take the risk or lose the chance",
+],
+            "passed": [
+                f"gta {kwarg.get('params')}",
+],
+            "glass": [
+                f"🧟‍♂️ {kwarg.get('params')}",
+],
+            "comrade": [
+                f"🚶{kwarg.get('params')}",
+],
+            "triggered": [
+                f"🏃 {kwarg.get('params')}",
+],
+            "lgbt": [
+                f"🤡 {kwarg.get('params')}",
+],
+            "lesbian": [
+                f"🤡 {kwarg.get('params')}",
+],
             "gey": f"You are  a {kwarg.get('rgay')} gay. WARWRRRRRRRR",
-            "coin": "OMG; How lucky you are !!!",
+            "coin": "🤙",
             "nalgada": [
                 f"{kwarg.get('nalgada')}  grabs tightly the tail of {kwarg.get('params')}  uwu",
                 f"{kwarg.get('nalgada')} grabs her hand and takes her to the other world to take her to this ... and give a tremendous spanking {kwarg.get('params')} >:3",
@@ -306,7 +330,7 @@ def tr_rav(lenguaje, dato, **kwarg):
             "casarse": [
                 f"\t\t 𝐃𝐫𝐨𝐧𝐞𝐗 \n\n Sisters and brothers, we are gathered here to witness the wedding of {kwarg.get('name')} and {kwarg.get('params')}.  If someone objects ... Well, fuck his mother, we don't care >:)",
                 f"\t\t 𝐃𝐫𝐨𝐧𝐞𝐗.\n\n Today we celebrate the holy marriage of {kwarg.get('name')} and {kwarg.get('params')}. \n\n Whoever opposes this wedding, falls now or goes to see Netflix.",
-                f"\t\t 𝐃𝐫𝐨𝐧𝐞𝐗.\n\n With the power of the matrix, I declared, married to {kwarg.get('name')} and {kwarg.get('params')}.  You can kiss the boyfriend / girlfriend",
+                f"\t\t 𝐃𝐫𝐨𝐧𝐞𝐗.\n\n With the power of the matrix, I declared,{kwarg.get('name')} and {kwarg.get('params')}Married.  You can kiss",
                 f"\t\t 𝐃𝐫𝐨𝐧𝐞𝐗.\n\n From today, the love between {kwarg.get('name')} and {kwarg.get('params')}, is blessed by those above."
             ],
             "patada": [
@@ -316,10 +340,10 @@ def tr_rav(lenguaje, dato, **kwarg):
                 f"He starts to kick like otaku at {kwarg.get('params')} -n-'",
                 f"He gave a pantada that leaves him childless {kwarg.get('params')} yny"
             ],
-            "desaperecer": [
-                f"{kwarg.get('name')} disappear like gil",
-                f"{kwarg.get('name')} disappear like nekito",
-                f"{kwarg.get('name')} disappear like furro",
+            "desaparecer": [
+                f"{kwarg.get('name')} disappear like isko",
+                f"{kwarg.get('name')} disappear like Leni",
+                f"{kwarg.get('name')} disappear like Manny",
                 f"{kwarg.get('name')} disappear like {kwarg.get('params')}, jaja k sad",
                 f"{kwarg.get('name')} disappear like fuckboy",
                 f"{kwarg.get('name')} disappear like fuckgirl",
@@ -380,7 +404,7 @@ def tr_rav(lenguaje, dato, **kwarg):
             "leave": f"[C]¡Thanks for having me in this chat, but now I have to go to rest! >w<",
             "ban": "<$User successfully banned! owo'$>",
             "warn": "<$User warned successfully! owo'$>",
-            "owner_off": "<$You don't own me, what are you doing using this command? -.-'",
+            "owner_off": "<$You don't own me, what are you doing? -.-'",
             "invite_chat": "<$Now they can invite in chat! uwu$>",
             "invite_chat_none": "<$No no one can invite in chat! uwu$>",
             "chat_view": "<$Now you can read chat! uwu$>",
@@ -393,7 +417,7 @@ def tr_rav(lenguaje, dato, **kwarg):
             "bubble": "Your chat bubble was successfully changed! :3",
             "chat_fij": "<$Advertisement fixed from chat! uwu$>",
             "chat_fij_none": "<$Chat ad unset! uwu$>",
-            "owner_error": "<$[C]Error, get the command right dummy! -w-[C]Remember to put -help -command to know how to use it uwu$>",
+            "owner_error": "<$[C]Error, [C]Remember to put -help -command to know how to use it😁",
         }
     }
     return data[lenguaje][dato]
