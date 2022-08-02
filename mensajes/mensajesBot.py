@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
+import re
 import os
 
 
@@ -39,7 +39,7 @@ def mensajeAutor():
           . . `; -._    )-;-,_`)
           (v_,)'  _  )`-.\  ``-'
           _.- _..-_/ / ((.'
-      ((,.-'   ((,/   By- Standby.
+      ((,.-'   ((,/   By- NFV CY.
       """)
 
 
@@ -53,15 +53,15 @@ def mensajeBienvenida():
     ._.--''     ._,,, _..'  .;.'
     (,_....----'''     (,..--''
 
-        ¡Bienvenido mortal, puedes probar de este maravilloso bot! Pero recuerda, es una prueba, ¿Te gusto? ¡Compralo y estara 24/7!
+        Â¡Bienvenido mortal, puedes probar de este maravilloso bot! Pero recuerda, es una prueba, Â¿Te gusto? Â¡Compralo y estara 24/7!
     """)
 
 
 def mensajeError(error):
-    print(f"\n[Ocurrio un error inesperado]→ {error}\n")
+    print(f"\n[An unexpected error occurred]â†’ {error}\n")
 
 
-def mensajeAyuda_animales():
+def mensajeAyuda_animals():
     animalesAyuda = open(
         "mensajes/mensajesAyuda/mensajesAyuda_Categorias/aminoAyuda_animales.txt",
         "r",
@@ -71,7 +71,7 @@ def mensajeAyuda_animales():
     return aminoAyuda_animales
 
 
-def mensajeAyuda_acciones():
+def mensajeAyuda_actions():
     accionesAyuda = open(
         "mensajes/mensajesAyuda/mensajesAyuda_Categorias/aminoAyuda_acciones.txt",
         "r",
@@ -81,7 +81,7 @@ def mensajeAyuda_acciones():
     return aminoAyuda_acciones
 
 
-def mensajeAyuda_ayudante():
+def mensajeAyuda_helper():
     animalesAyudante = open(
         "mensajes/mensajesAyuda/mensajesAyuda_Categorias/aminoAyuda_ayudante.txt",
         "r",
@@ -91,7 +91,7 @@ def mensajeAyuda_ayudante():
     return aminoAyuda_ayudante
 
 
-def mensajeAyuda_entretenimiento():
+def mensajeAyuda_entertainment():
     entretenimientoAyuda = open(
         "mensajes/mensajesAyuda//mensajesAyuda_Categorias/aminoAyuda_entretenimiento.txt",
         "r",
@@ -101,7 +101,7 @@ def mensajeAyuda_entretenimiento():
     return aminoAyuda_entretenimiento
 
 
-def mensajeAyuda_guion():
+def mensajeAyuda_script():
     guionAyuda = open(
         "mensajes/mensajesAyuda/mensajesAyuda_Categorias/aminoAyuda_guion.txt",
         "r",
@@ -111,7 +111,7 @@ def mensajeAyuda_guion():
     return aminoAyuda_guion
 
 
-def mensajeAyuda_ravnin():
+def mensajeAyuda_dronex():
     ravninAyuda = open(
         "mensajes/mensajesAyuda/mensajesAyuda_Categorias/aminoAyuda_Ravnin.txt",
         "r",
@@ -133,31 +133,31 @@ def mensajeAyuda_invisible():
 
 def mensajeAyuda_everyone():
     return """[CB]everyone:
-[C]Este comando es para llamar a todos los del chat. Usalo bien y recuerda tener cuidado, te pueden funar. Solo usalo en caso de emergencia y de actividad. ! >w<
-[c]
-[CB]Uso: -everyone mensaje"""
+ [C]This command is to call everyone in the chat.  Use it well and remember to be careful, they can work for you.  Only use it in case of emergency and activity.  !  >w<
+ [c]
+ [CB]Usage: -everyone message"""
 
 
 def mensajeAyuda_id():
     return """[CB]id:
 [C]
-[C]Esto es para tener el ID de dicho chat.
+[C]This is to have the ID of said chat.
 [C]
 [CB]Uso: -id"""
 
 
 def mensajeAyuda_siri():
-    return """[CB]siri:
+    return """[CB]dronex:
 [C]
-[C]Este comando es igual que -speak, pero en vez de texto te lo dice con una voz >:3
+[C]This command is the same as -speak, but instead of text it tells you with a voice>:3
 [C]
-[CB]Uso: -siri mensaje"""
+[CB]Uso: dronex message"""
 
 
 def mensajeAyuda_gay():
     return """[CB]gay:
 [C]
-[C]Te dira que tan gay eres, muak. uwu
+[C]will tell you how gay you are, muak. uwu
 [C]
 [CB]Uso: -gay"""
 
@@ -165,23 +165,23 @@ def mensajeAyuda_gay():
 def mensajeAyuda_kick():
     return """[CB]kick:
 [C]
-[C]Este comando le dara una patada al usuario que quieras sacar. uwu
+[C]This command will kick the user you want to kick. uwu
 [C]
-[CB]Uso: -kick usuario"""
+[CB]Uso: -kick user"""
 
 
 def mensajeAyuda_strike():
     return """[CB]Strike:
 [C]
-[C]Este comando solo funciona si soy lider rewer
+[C]This command only works if I am a leader
 [C]
-[CB]Uso: -strike mensaje"""
+[CB]Uso: -strike message"""
 
 
 def mensajeAyuda_coin():
     return """[CB]coin:
 [C]
-[C]Lo mas emocionante, lo mas perverso, lo mas adrelaniña, es apostar!!! Recuerda pagar si pierdes.>:3
+[C]The most exciting, the most perverse, the most adrelaniÃ±a, is to bet!!!  Remember to pay if you lose.>:3
 [C]
 [CB]Uso: -coin"""
 
@@ -189,7 +189,7 @@ def mensajeAyuda_coin():
 def mensajeAyuda_leave():
     return """[CB]leave:
 [C]
-[C]¡Este comando quitara a tu bot del chat!
+[C]This command will remove your bot from the chat!
 [C]
 [CB]Uso: -leave"""
 
@@ -197,49 +197,49 @@ def mensajeAyuda_leave():
 def mensajeAyuda_like_comunidad():
     return """[CB]like_comunidad:
 [C]
-[C]¡Pondre esta comunidad en mi perfil global! :3
+[C]I will put this community on my global profile! :3
 [C]
-[CB]Uso: -like_comunidad"""
+[CB]Uso: -like_community"""
 
 
 def mensajeAyuda_anfi():
-    return """[CB]anfi:
+    return """[CB]co-host:
 [C]
-[C]¡Sere tu anfi del chat! >:3
+[C]i will be the host of the chat! >:3
 [C]
-[CB]Uso: -anfi"""
+[CB]Uso: -cohost"""
 
 
 def mensajeAyuda_coa():
     return """[CB]coa:
 [C]
-[C]¡Sere tu anfi del chat! Es decir si soy coa y usas este comando me volvere anfitrion. >:3
+[C]I'll be your chat host!  That is, if I am a coa and you use this command, I will become the host. >:3
 [C]
-[CB]Uso: -coa"""
+[CB]Uso: -host"""
 
 
 def mensajeAyuda_chat():
     return """[CB]chat:
 [C]
-[C]¡Este comando quitara es para hablar conmigo! -w-
+[C]Talk to me! -w-
 [C]
-[CB]Uso: -chat mensaje
+[CB]Uso: -chat message
 [C]
-[C]Si quieres saber el info de chat-en usa: -help -chat_en :3"""
+[C]If you want to know the chat-en info use: -help -chat_en :3"""
 
 
 def mensajeAyuda_chat_siri():
     return """[CB]chat-en:
 [C]
-[C]¡Escucha esta voz setsual mia al responderte a lo que me digas! -w-
+[C]Listen to this sensual voice of mine when responding to what you say to me!! -w-
 [C]
-[CB]Uso: -chat-siri mensaje"""
+[CB]Uso: -dronex message"""
 
 
 def mensajeAyuda_chat_en():
     return """[CB]chat-en:
 [C]
-[C]¡Este comando quitara es para hablar conmigo en inglés! -w-
+[C]Â¡Este comando quitara es para hablar conmigo en inglÃ©s! -w-
 [C]
 [CB]Uso: -chat-en mensaje
 [C]
@@ -247,35 +247,35 @@ def mensajeAyuda_chat_en():
 
 
 def mensajeAyuda_tr():
-    return """[CB]traductor:
+    return """[CB]translator:
 [C]
-[C]¿Qué eres bruto con los idiomas? ¡Ño te preocupes, sho te ayudo! 😋
+[C]Languages?  Don't worry, I'll help you!  ðŸ˜‹
 [C]
-[CB]Uso: -tr mensaje"""
+[CB]Uso: -tr message"""
 
 
 def mensajeAyuda_purge():
     return """[CB]Purge:
 [C]
-[C]Elimino los mensajes que quieras, solamente si me haces lider o curador ;3
+[C]I delete the messages you want, only if you make me leader or curator ;3
 [C]
 [CB]Uso: -purge 3"""
 
 
 def mensajeAyuda_fondo_bot():
-    return """[CB]Fondo:
+    return """[CB]Fund:
 [C]
-[C]Esto pondra un fondo en la cuenta del bot.
-[C]
-[CB]Uso: -fondo_bot link de la imagne.jpg"""
+[C]This will put a fund in the bot account.
+ [C]
+[CB]Uso: -background_bot link to image.jpg"""
 
 
 def mensajeAyuda_icon_bot():
-    return """[CB]icon perfil:
+    return """[CB]icon profile:
 [C]
-[C]Esto pondra un icon en la cuenta del bot.
+[C]This will put an icon on the bot account.
 [C]
-[CB]Uso: -icon_bot link de la imagne.jpg"""
+[CB]Uso: -icon_bot link of the image.jpg"""
 
 
 def mensajeAyuda_burbuja():
@@ -303,7 +303,7 @@ def mensajeAyuda_confession():
 def mensajeAyuda_audio():
     return """[CB]audio:
   
-[C]¿Quieres escuchar mi voz? owo
+[C]Â¿Quieres escuchar mi voz? owo
 [C]
 [CB] -audio """
 
@@ -319,7 +319,7 @@ def mensajeAyuda_comunidad():
 def mensajeAyuda_pokedex():
     return """[CB]pokedex:
   
-[C]¡Te dare toda la info de tu pokemon favorito! OwO
+[C]Â¡Te dare toda la info de tu pokemon favorito! OwO
 [C]
 [CB]Uso: -pokedex nombre del pokemon"""
 
@@ -363,7 +363,7 @@ def mensajeAyuda_quizz():
 def mensajeAyuda_wink():
     return """[CB]wink:
   
-[C]Guiño guiño codo codo ;3
+[C]GuiÃ±o guiÃ±o codo codo ;3
 [C]
 [CB]Uso: -wink"""
 
@@ -371,7 +371,7 @@ def mensajeAyuda_wink():
 def mensajeAyuda_img():
     return """[CB]audio:
   
-[C]¿Quieres ver mi pack...de media/img? owo
+[C]Â¿Quieres ver mi pack...de media/img? owo
 [C]
 [CB]Uso: -img"""
 
@@ -387,7 +387,7 @@ def mensajeAyuda_kiss():
 def mensajeAyuda_kill():
     return """[CB]kill:
   
-[C]¡Este comando le da K'O a su oponente enseguida! D':
+[C]Â¡Este comando le da K'O a su oponente enseguida! D':
 [C]
 [CB]Uso: -kill user"""
 
@@ -403,13 +403,13 @@ def mensajeAyuda_hug():
 def mensajeAyuda_comment():
     return """[CB]comment:
   
-[C]Este comando te comenta tu muro y de un usuario que prefieras, todo anonimante, pero recuerda, ¡Un gran poder es una gran responsabilidad!.
+[C]Este comando te comenta tu muro y de un usuario que prefieras, todo anonimante, pero recuerda, Â¡Un gran poder es una gran responsabilidad!.
 [C]
 [CB]Primer uso, comentar en tu muro: comment MENSAJE
 [C]
 [CB]Segundo uso, comentar en el muro de otra persona: comment @Usuario = mensajeAutor
 
-Donde es mensaje ponen lo que quieran, y en usuario deben poner el nick del usuario qué esta en el chat. (Recuerden poner el = sino no va a funcionar. Tenkiuuu >w<"""
+Donde es mensaje ponen lo que quieran, y en usuario deben poner el nick del usuario quÃ© esta en el chat. (Recuerden poner el = sino no va a funcionar. Tenkiuuu >w<"""
 
 
 def mensajeAyuda_virguilila_kiss():
@@ -469,49 +469,49 @@ def mensajeAyuda_virguilila_lick():
 def mensajeAyuda_virguilila_speak():
     return """[CB]lick:
   
-[C]Primo de speak, o sea dira todo lo que tú quieras de forma invisible. >u<
+[C]Primo de speak, o sea dira todo lo que tÃº quieras de forma invisible. >u<
 [C]
 [CB]Uso: ~speak mensaje"""
 
 
 def mensajeAyuda_virguilila_hit():
-    return """[CB]puñetazo:
+    return """[CB]puÃ±etazo:
   
-[C]¡Te dara una golpiza! >:
+[C]Â¡Te dara una golpiza! >:
 [C]
-[CB]Uso: ~puñetazo user """
+[CB]Uso: ~puÃ±etazo user """
 
 
 def mensajeAyuda_sacarid():
     return """[CB]sacarid:
   
-[C]¿Quieres sacar un id? owo
+[C]Â¿Quieres sacar un id? owo
 [C]
 [CB]Uso: -sacarid http://amino.com/EXAMPLE. """
 
 
 def mensajeAyuda_punto_fondo():
-    return """[CB]Fondo
-[C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es mandar una imagen en el chat (Recuerda, este comando es para ponerle fondo al chat, pero solo si soy coa o anfi)
-[C]
-[C]En este punto ya tenemos claros muchas cosas, ahora que enviaste el fondo responde ese mismo mensaje y pon .fondo, esto le pondra el fondo que enviaste en el chat. (๑•̀ㅂ •́)و✧ 
-[C]
-[CB]Uso: .fondo"""
+    return """[CB]Background
+ [C]
+ [C]Today I will teach you how to use this command!  The first thing you have to do is send an image in the chat (Remember, this command is to add a background to the chat, but only if I am a coa or anfi)
+ [C]
+ [C] At this point we already have many things clear, now that you sent the background, reply to that same message and put .background, this will put the background you sent in the chat.  (à¹‘â€¢Ì€ã…‚ â€¢Ì )Ùˆâœ§
+ [C]
+ [CB]Usage: .bg"""
 
 
 def mensajeAyuda_punto_contenido():
-    return """[CB]contenido
-[C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .contenido Hola como estas y esto pondra en la biografia del chat Hola como estas, puedes mandar cualquier texto que quieras. (๑•̀ㅂ •́)و✧ 
-[C]
-[CB]Uso: .contenido mensaje"""
+    return """[CB]content
+ [C]
+ [C]Today I will teach you how to use this command!  The first thing you have to do is put .content Hello how are you and this will put in the biography of the chat Hello how are you, you can send any text you want.  (à¹‘â€¢Ì€ã…‚ â€¢Ì )Ùˆâœ§
+ [C]
+ [CB]Usage: .message content"""
 
 
 def mensajeAyuda_punto_view():
     return """[CB]view
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .view cualquier cosa y esto pondra el chat en modo visualizacion, y si pones .view quitara el modo visualizacion del chat. Recuerden, si ponen solo view se desactiva, y si ponen una palabra lo activan. (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .view cualquier cosa y esto pondra el chat en modo visualizacion, y si pones .view quitara el modo visualizacion del chat. Recuerden, si ponen solo view se desactiva, y si ponen una palabra lo activan. (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Activar: .view palabra
 [CB]Desactivar: .view"""
@@ -520,7 +520,7 @@ def mensajeAyuda_punto_view():
 def mensajeAyuda_punto_anuncio():
     return """[CB]anuncio
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .anuncio Hola como estas y esto pondra un anuncio del chat con Hola como estas, puedes mandar cualquier texto que quieras. (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .anuncio Hola como estas y esto pondra un anuncio del chat con Hola como estas, puedes mandar cualquier texto que quieras. (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Uso: .anuncio mensaje"""
 
@@ -528,7 +528,7 @@ def mensajeAyuda_punto_anuncio():
 def mensajeAyuda_punto_fijar():
     return """[CB]fijar
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .fijar palabra (Puede ser cualquier cosa) y esto quitara el mensaje de anuncio, y si pones .fijar fijaras un anuncio.. Pero espera, ¿Cual anuncio? ¡Usa el comando .anuncio! (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .fijar palabra (Puede ser cualquier cosa) y esto quitara el mensaje de anuncio, y si pones .fijar fijaras un anuncio.. Pero espera, Â¿Cual anuncio? Â¡Usa el comando .anuncio! (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Activar: .fijar palabra
 [CB]Desactivar: .fijar"""
@@ -537,7 +537,7 @@ def mensajeAyuda_punto_fijar():
 def mensajeAyuda_punto_invitar():
     return """[CB]invitar
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .invitar palabra (Puede ser cualquier palabra) y esto hara que cualquiera pueda invitar a su amigo al chat, pero si pones .invitar solo los coa y anfi podran invitar. (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .invitar palabra (Puede ser cualquier palabra) y esto hara que cualquiera pueda invitar a su amigo al chat, pero si pones .invitar solo los coa y anfi podran invitar. (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Activar: .invitar palabra
 [CB]Desactivar: .invitar"""
@@ -546,7 +546,7 @@ def mensajeAyuda_punto_invitar():
 def mensajeAyuda_punto_clave():
     return """[CB].clave
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .clave Hola, y esto pondra palabras claves en el chat. (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .clave Hola, y esto pondra palabras claves en el chat. (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Uso: .clave palabra"""
 
@@ -554,9 +554,9 @@ def mensajeAyuda_punto_clave():
 def mensajeAyuda_punto_portada():
     return """[CB]portada
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es mandar una imagen en el chat (Recuerda, este comando es para ponerle portada al chat, pero solo si soy coa o anfi)
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es mandar una imagen en el chat (Recuerda, este comando es para ponerle portada al chat, pero solo si soy coa o anfi)
 [C]
-[C]En este punto ya tenemos claros muchas cosas, ahora que enviaste el portada responde ese mismo mensaje y pon .portada, esto pondra la imagen que envias como foto de portada del chat. (๑•̀ㅂ •́)و✧ 
+[C]En este punto ya tenemos claros muchas cosas, ahora que enviaste el portada responde ese mismo mensaje y pon .portada, esto pondra la imagen que envias como foto de portada del chat. (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Uso: .portada"""
 
@@ -564,7 +564,7 @@ def mensajeAyuda_punto_portada():
 def mensajeAyuda_punto_ban():
     return """[CB].ban
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .ban link del perfil del usuario = Razon del Baneo, y esto lo baneara de la comunidad. Usalo solo si es necesario y no esta algun lider. ¡Recuerda poner el = con el motivo del baneo, se chico/a e informa! (Este comando no tiene efecto contra el staff) (๑•̀ㅂ •́)و✧ 
+[C]Â¡Hoy te enseÃ±are a usar este comando! Lo primero que tienes que hacer es poner .ban link del perfil del usuario = Razon del Baneo, y esto lo baneara de la comunidad. Usalo solo si es necesario y no esta algun lider. Â¡Recuerda poner el = con el motivo del baneo, se chico/a e informa! (Este comando no tiene efecto contra el staff) (à¹‘â€¢Ì€ã…‚ â€¢Ì)Ùˆâœ§ 
 [C]
 [CB]Uso: .ban https://aminoapps/linkdelusuario.com = razon del baneo"""
 
@@ -572,30 +572,30 @@ def mensajeAyuda_punto_ban():
 def mensajeAyuda_punto_strike():
     return """[CB].strike
 [C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .strike link del perfil del usuario = Razon del Baneo, y esto lo baneara de la comunidad. Usalo solo si es necesario y no esta algun lider. ¡Recuerda poner el = con el motivo del baneo, se chico/a e informa! (Este comando no tiene efecto contra el staff) (๑•̀ㅂ •́)و✧ 
+[C]Today I will teach you how to use this command!  The first thing you have to do is put .strike link of the user's profile = Ban Reason, and this will ban him from the community.  Use it only if necessary and there is no leader.  Remember to put the = with the reason for the ban, be a kid and report!  (This command has no effect against staff) 
 [C]
-[CB]Uso: .strike https://aminoapps/linkdelusuario.com = razon del baneo"""
+[CB]Uso: .strike https://aminoapps/link of user.com = reason for the ban"""
 
 
 def mensajeAyuda_punto_bloquear():
-    return """[CB].bloquear
-[C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .bloquear link del usuario, y esto bloqueara al usuario para que no use los comandos. (๑•̀ㅂ •́)و✧ 
-[C]
-[CB]Uso: .bloquear https://aminoapps/linkdelusuario.com"""
+    return """[CB].block
+ [C]
+ [C]Today I will teach you how to use this command!  The first thing you have to do is put .block user link, and this will block the user from using the commands.  
+ [C]
+ [CB]Usage: .block https://aminoapps/userlink.com"""
 
 
 def mensajeAyuda_punto_titulo():
-    return """[CB].titulo
-[C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .titulo Holaa como estas, y esto cambiara el titulo del chat a Holaa como estas, puede ser cualquier mensaje o titulo que quieras. (๑•̀ㅂ •́)و✧ 
-[C]
-[CB]Uso: .titulo  mensaje"""
+    return """[CB].title
+ [C]
+ [C]Today I will teach you how to use this command!  The first thing you have to do is put .title Hello how are you, and this will change the title of the chat to Hello how are you, it can be any message or title you want.  (à¹‘â€¢Ì€ã…‚ â€¢Ì )Ùˆâœ§
+ [C]
+ [CB] Usage: .message title"""
 
 
 def mensajeAyuda_punto_warn():
     return """[CB].warn
-[C]
-[C]¡Hoy te enseñare a usar este comando! Lo primero que tienes que hacer es poner .warn link del usuario = razon de la advertencia, recuerda es importante poner el link y el =, si no te dara error. (๑•̀ㅂ •́)و✧ 
-[C]
-[CB]Uso: .warn link del usuario = razon de la advertencia"""
+ [C]
+ [C]Today I will teach you how to use this command!  The first thing you have to do is put .warn link of the user = reason for the warning, remember it is important to put the link and the =, otherwise it will give you an error.  (à¹‘â€¢Ì€ã…‚ â€¢Ì )Ùˆâœ§
+ [C]
+ [CB]Usage: .warn user link = warning reason"""
